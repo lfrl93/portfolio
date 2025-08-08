@@ -1,0 +1,65 @@
+O que é um fwrite()?
+size_t fwrite(const void *ptr, size_t size, size_t count, FILE *stream);
+ptr -- é um ponteiro para os dados a escrever (endereço da struct)
+size-- tamanho de cada elemento (ex: sizeof(sensor1))
+count-- numero de elementos que quero escrever
+stream--  ficheiro aberto em modo "wb" ou "ab"
+----------------------------------------------------------------
+o que é um fread()?
+Igual a fwrite, mas lê os dados do ficheiro para a memória.
+typedef struct {
+    char nome[50];
+    float temperatura;
+} Sensor;
+
+Tamanho total da struct = 50+4 bytes. Estou  a escrever 54 bytes no ficheiro.
+
+"wb"-- escrita binaria
+"ab"-- acrescenta binario
+"rb"-- leitura binaria
+FILE *f = fopen("dados.bin", "wb");
+
+Verifica o retorno de fwrite e fread:
+---------------------------------------------
+if (fwrite(...) != 1) {
+    printf("Erro ao escrever no ficheiro!\n");
+}
+---------------------------------------------
+Structs ficheiro binário :
+#include <stdio.h>
+
+typedef struct {
+    char nome[50];
+    float temperatura;
+} Sensor;
+
+int main() {
+    Sensor s = {"Luis", 36.5}; // Criamos um sensor
+
+    FILE *f = fopen("dados.bin", "wb"); // Abrir ficheiro binário para escrita
+    fwrite(&s, sizeof(Sensor), 1, f);    // Gravar a struct inteira no ficheiro
+    fclose(f);                           // Fechar ficheiro
+
+    return 0;
+}
+-----------------------------------------------------------------------------------------
+#include <stdio.h>
+
+typedef struct {
+    char nome[50];
+    float temperatura;
+} Sensor;
+
+int main() {
+    Sensor s;
+
+    FILE *f = fopen("dados.bin", "rb"); // Abrir ficheiro binário para leitura
+    fread(&s, sizeof(Sensor), 1, f);    // Ler os bytes da struct
+    fclose(f);
+
+    printf("Nome: %s\n", s.nome);
+    printf("Temperatura: %.1f\n", s.temperatura);
+
+    return 0;
+}
+

@@ -1,0 +1,19 @@
+malloc - caso não consiga alocar memoria o ptr retorna um NULL
+
+int *ptr = malloc(10 * sizeof(int)); 
+------------------------------------------------------------------
+Calloc- é o mesmo que o malloc mas inicializa o vetor com zeros
+
+int *ptr = calloc(10, sizeof(int));
+--------------------------------------------------------------------
+Realloc - para  aumentar a memoeria reservada inicialmente
+
+int *ptr = malloc(5 * sizeof(int));
+ptr = realloc(ptr, 10 * sizeof(int));
+-----------------------------------------------------------------------
+Libertar memoria
+
+free(ptr)
+----------------------------------------------------------------------------
+
+

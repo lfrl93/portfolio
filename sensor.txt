@@ -1,0 +1,2 @@
+Sensor esp34
+temperatura: 39.1
